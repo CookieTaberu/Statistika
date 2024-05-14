@@ -1,40 +1,32 @@
 import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 import dataproses
+from dataproses import preproses
 def ProcessingInput(newInput):
     clf = DecisionTreeClassifier()
-    X_train,y_train = dataproses.Process()
+    X_train,y_train = preproses(newInput)
     clf.fit(X_train,y_train)
     # Create a DataFrame from the new applicant's features
     new_applicant_df = pd.DataFrame([newInput])
-
-    # Display the input for the new loan applicant
-    print("Input for the new loan applicant:")
-    print(new_applicant_df)
 
     # Reorder columns to match the training data
     new_applicant_df = new_applicant_df[X_train.columns]
 
     # Predict loan repayment for the new applicant
     prediction = clf.predict(new_applicant_df)
+    return new_applicant_df
 
-    # Print the prediction
+def predict(newInput):
+    with open('tree_model.pkl', 'rb') as file:
+        loaded_model = pickle.load(file)
+        
+    prepas = ProcessingInput(newInput)
+    
+    predict = loaded_model.predict(prepas)
+
     if prediction[0] == 0:
         print("Prediction: Fully Paid")
     else:   
         print("Prediction: Not Fully Paid")
 
 
-new_applicant = {
-    'int.rate': 0.1,
-    'installment': 500,
-    'dti': 0.3,
-    'fico': 700,
-    'days.with.cr.line': 2000,
-    'revol.bal' : 200,
-    'revol.util' : 4000,
-    'delinq.2yrs' : 5,
-    'inq.last.6mths' : 400
-}
-
-ProcessingInput(new_applicant)
