@@ -2,6 +2,7 @@ import pandas as pd
 from sklearn.tree import DecisionTreeClassifier
 import dataproses
 from dataproses import preproses
+import pickle
 def ProcessingInput(newInput):
     clf = DecisionTreeClassifier()
     X_train,y_train = preproses(newInput)
@@ -24,9 +25,7 @@ def predict(newInput):
     
     predict = loaded_model.predict(prepas)
 
-    if prediction[0] == 0:
+    if predict[0] == 0:
         print("Prediction: Fully Paid")
     else:   
         print("Prediction: Not Fully Paid")
-
-

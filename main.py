@@ -10,7 +10,7 @@ def main():
     
     # Train the model
     train_model(data)
-    
+
     # Example of predicting with new input data
     new_input_data = { 'int.rate': 0.1,
         'installment': 500,
@@ -23,6 +23,7 @@ def main():
         'inq.last.6mths': 1}  # Replace {...} with your new input data
     user=InputProcess.ProcessingInput(new_input_data)
     predict(user)
+    
 
 if __name__ == "__main__":
     main()
